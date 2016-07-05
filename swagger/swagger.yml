@@ -1,0 +1,74 @@
+swagger: '2.0'
+info:
+  version: 0.0.1
+  title: api
+  description: api Viajeros a doquier
+schemes:
+  - http
+host: 'localhot:3000'
+basePath: /v0
+produces:
+  - application/json
+paths:
+  /hotels/{hotel_id}/info:
+    x-swagger-router-controller: Hotels
+    get:
+      tags:
+        - Hotels
+      summary: Hotel Information
+      description: |
+        Get a HotelInformation entity based on :hotel_id. Namespaced relative to Hotels
+      parameters:
+        - name: hotel_id
+          in: path
+          description: Hotel id
+          required: true
+          type: number
+      responses:
+        200:
+          description: successful operation
+          schema:
+            $ref: '#/definitions/HotelInfoResponse'
+        204:
+          description: Not found responses
+          schema:
+            $ref: '#/definitions/NotFoundResponse'
+definitions:
+  NotFoundResponse:
+    type: object
+    properties:
+      message:
+        description: Error Message
+        type: string
+  HotelInfoResponse:
+    type: object
+    properties:
+      message:
+        description: Information Message
+        type: string
+      hotelInfo:
+        $ref: '#/definitions/HotelInfo'
+  HotelInfo:
+    type: object
+    description: Represents a HotelInformation object
+    properties:
+      id:
+        type: number
+        description: Entity Id
+        format: int64
+      hotel_id:
+        type: number
+        description: Hotel Id
+        format: int64
+      street:
+        type: string
+        description: Street
+      postal_code:
+        type: string
+        description: "Postal code"
+      number:
+        type: string
+        description: Number
+      city:
+        type: string
+        description: City name
